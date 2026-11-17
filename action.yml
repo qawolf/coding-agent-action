@@ -1,0 +1,24 @@
+name: "QA Wolf Coding Agent"
+description: "Hand a bug that QA Wolf found to your own coding agent, and report what it did"
+branding:
+  icon: "tool"
+  color: "purple"
+inputs:
+  fix:
+    description: "The fix QA Wolf asked for. QA Wolf fills it in when it starts the workflow."
+    required: true
+  agent:
+    description: "The coding agent the workflow picked: claude-code, codex, cursor, command or none."
+    required: true
+  qawolf-base-url:
+    description: "The base URL of the QA Wolf API."
+    required: false
+    default: "https://app.qawolf.com"
+outputs:
+  agent:
+    description: "The agent whose step runs. Empty for a setup check and when there is no agent, so no agent step runs."
+runs:
+  using: "node24"
+  main: "dist/index.js"
+  post: "dist/post.js"
+  post-if: "always()"
